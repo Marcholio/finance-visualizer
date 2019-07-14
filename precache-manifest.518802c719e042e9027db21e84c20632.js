@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "48ce4516b9fa3b98bbf256929ee69ecf",
+    "revision": "64af6d4f1a3c2680642c084334f55191",
     "url": "/finance-visualizer/index.html"
   },
   {
-    "revision": "1553a55251db7a7917de",
+    "revision": "de4d996da6e974b5b017",
     "url": "/finance-visualizer/static/css/main.2cce8147.chunk.css"
   },
   {
-    "revision": "1d1392dd035be76acbff",
-    "url": "/finance-visualizer/static/js/2.096ca4c6.chunk.js"
+    "revision": "15ffe3be47b73bb70c94",
+    "url": "/finance-visualizer/static/js/2.3ef37d37.chunk.js"
   },
   {
-    "revision": "1553a55251db7a7917de",
-    "url": "/finance-visualizer/static/js/main.9f78b6ae.chunk.js"
+    "revision": "de4d996da6e974b5b017",
+    "url": "/finance-visualizer/static/js/main.7c53fc23.chunk.js"
   },
   {
     "revision": "afb111882bdca82756f5",
