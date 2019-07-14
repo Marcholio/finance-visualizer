@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { AreaChart, XAxis, YAxis, Tooltip, Area } from "recharts";
+import _ from "lodash";
 import purchases from "./data/purchases.json";
 
-const categories = purchases[Object.keys(purchases)[0]].map(p => p.category);
+const categories = Object.keys(purchases[Object.keys(purchases)[0]]);
 
 const colors = {
   rent: "#d32f2f",
@@ -16,22 +17,29 @@ const colors = {
   savings: "#795548"
 };
 
+const parseData = period => {
+  const data = [];
+
+  const months = Object.keys(purchases).reverse();
+
+  for (let i = period - 1; i < months.length; i++) {
+    const summed = _.slice(months, i - period + 1, i + 1).reduce((acc, cur) => {
+      categories.forEach(
+        c => (acc[c] = Math.round((acc[c] || 0) + purchases[cur][c] / period))
+      );
+
+      return acc;
+    }, {});
+
+    data.push(Object.assign({ month: months[i] }, summed));
+  }
+
+  return data;
+};
+
 export default class Chart extends Component {
   state = {
-    data: Object.keys(purchases)
-      .reverse()
-      .map(k =>
-        Object.assign(
-          { month: k },
-          categories.reduce(
-            (acc, cur) =>
-              Object.assign(acc, {
-                [cur]: purchases[k].find(a => a.category === cur).amount
-              }),
-            {}
-          )
-        )
-      )
+    data: parseData(24)
   };
   render() {
     return (
@@ -48,7 +56,7 @@ export default class Chart extends Component {
               stackId="1"
               stroke={colors[c]}
               fill={colors[c]}
-            ></Area>
+            />
           ))}
         </AreaChart>
       </div>
