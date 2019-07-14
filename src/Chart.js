@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { AreaChart, XAxis, YAxis, Tooltip, Area } from "recharts";
 import _ from "lodash";
-import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
+import { FormControl, TextField } from "@material-ui/core";
 import purchases from "./data/purchases.json";
 
 const categories = Object.keys(purchases[Object.keys(purchases)[0]]);
@@ -44,27 +44,26 @@ export default class Chart extends Component {
     period: 1
   };
 
-  handleChange(newVal) {
-    console.log(newVal);
+  handleChange(event) {
+    const minMax = Math.max(Math.min(event.target.value, 24), 1);
+    this.setState({
+      period: minMax,
+      data: parseData(minMax)
+    });
   }
 
   render() {
     return (
       <div>
         <FormControl>
-          <InputLabel htmlFor="age-simple">Age</InputLabel>
-          <Select
-            value={1}
-            onChange={this.handleChange}
-            inputProps={{
-              name: "age",
-              id: "age-simple"
-            }}
-          >
-            <MenuItem value={1}>Ten</MenuItem>
-            <MenuItem value={2}>Twenty</MenuItem>
-            <MenuItem value={3}>Thirty</MenuItem>
-          </Select>
+          <TextField
+            id="period"
+            label="Period"
+            value={this.state.period}
+            onChange={this.handleChange.bind(this)}
+            type="number"
+            margin="normal"
+          />
         </FormControl>
         <AreaChart data={this.state.data} width={1200} height={500}>
           <XAxis dataKey="month" />
