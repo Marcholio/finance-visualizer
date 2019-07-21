@@ -7,15 +7,15 @@ import purchases from "./data/purchases.json";
 const categories = Object.keys(purchases[Object.keys(purchases)[0]]);
 
 const colors = {
-  rent: "#d32f2f",
-  phone: "#7b1fa2",
-  insurance: "#303f9f",
-  car: "#1976d2",
-  electronics: "#0097a7",
-  groceries: "#689f38",
-  alcohol: "#fbc02d",
-  entertainment: "#f57c00",
-  savings: "#795548"
+  rent: "#ff1744",
+  phone: "#D500F9",
+  insurance: "#3D5AFE",
+  car: "#00B0FF",
+  electronics: "#00E5FF",
+  groceries: "#00E676",
+  alcohol: "#76FF03",
+  entertainment: "#FFFF00",
+  savings: "#FFAB40"
 };
 
 const parseData = period => {
@@ -54,32 +54,37 @@ export default class Chart extends Component {
 
   render() {
     return (
-      <div>
-        <FormControl>
-          <TextField
-            id="period"
-            label="Period"
-            value={this.state.period}
-            onChange={this.handleChange.bind(this)}
-            type="number"
-            margin="normal"
-          />
-        </FormControl>
-        <AreaChart data={this.state.data} width={1200} height={500}>
-          <XAxis dataKey="month" />
-          <YAxis />
-          <Tooltip />
-          {categories.map(c => (
-            <Area
-              key={c}
-              type="monotone"
-              dataKey={c}
-              stackId="1"
-              stroke={colors[c]}
-              fill={colors[c]}
+      <div id="container">
+        <div id="container-header">
+          <h2>Monthly average spending</h2>
+          <FormControl>
+            <TextField
+              id="period"
+              label=""
+              value={this.state.period}
+              onChange={this.handleChange.bind(this)}
+              type="number"
+              margin="normal"
             />
-          ))}
-        </AreaChart>
+          </FormControl>
+        </div>
+        <div id="chart-container">
+          <AreaChart data={this.state.data} width={1200} height={500}>
+            <XAxis dataKey="month" tick={{ stroke: "white", fill: "white" }} />
+            <YAxis tick={{ stroke: "white", fill: "white" }} />
+            <Tooltip />
+            {categories.map(c => (
+              <Area
+                key={c}
+                type="monotone"
+                dataKey={c}
+                stackId="1"
+                stroke={colors[c]}
+                fill={colors[c]}
+              />
+            ))}
+          </AreaChart>
+        </div>
       </div>
     );
   }
